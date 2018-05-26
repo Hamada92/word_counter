@@ -39,7 +39,7 @@ public class WordReader extends BaseRichSpout {
                     fileReader.close();
                 }
             } catch (Exception e) {
-                throw new RuntimeException("Error reading tuple", e)
+                throw new RuntimeException("Error reading tuple", e);
             }
         }
     }
