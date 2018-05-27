@@ -1,5 +1,6 @@
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.BasicOutputCollector;
+import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseBasicBolt;
 import org.apache.storm.tuple.Tuple;
 
@@ -18,8 +19,8 @@ public class CountBolt extends BaseBasicBolt {
         this.counters = new HashMap<String, Integer>();
         this.name = context.getThisComponentId();
         this.id = context.getThisTaskId();
-        this.fileName = stormConf.get("dirToWriteT").toString()+
-                "output" + "-" + context.getThisComponentId() + ".txt";
+        this.fileName = stormConf.get("dirToWrite").toString()+
+                "output" + context.getThisTaskId() + "-" + context.getThisComponentId() + ".txt";
     }
 
     public void execute(Tuple input, BasicOutputCollector collector){
@@ -32,6 +33,8 @@ public class CountBolt extends BaseBasicBolt {
             counters.put(str, c);
         }
     }
+
+    public void declareOutputFields(OutputFieldsDeclarer declarer){}
 
     public void cleanup(){
         try{
